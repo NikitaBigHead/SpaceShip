@@ -19,10 +19,14 @@ public class Joystick : MonoBehaviour
     public float horizontal { get; private set; } = 0;
     public float vertical { get; private set; } = 0;
 
+    private Vector2 ButtonPosition;
+    private Vector2 CenterPosition;
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(Base.position);
+        ButtonPosition = Button.position;
+        CenterPosition = new Vector2(Base.position.x + Base.rect.width * 0.5f, Base.position.y + Base.rect.height * 0.5f);
     }
 
     int id = -1;
@@ -36,7 +40,7 @@ public class Joystick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-#if DEBUG
+//#if DEBUG
         float horizontalCoff = 0;
         float verticalCoff = 0;
         if (Input.GetKey(KeyCode.W))
@@ -49,7 +53,7 @@ public class Joystick : MonoBehaviour
             horizontalCoff += 1;
         horizontal = horizontalCoff;
         vertical = verticalCoff;
-#else
+//#else
         for (int touchNumber = 0; touchNumber < Input.touchCount; touchNumber++) 
         {
             Touch touch = Input.GetTouch(touchNumber);
@@ -94,11 +98,10 @@ public class Joystick : MonoBehaviour
                     horizontal = 0;
                     vertical = 0;
                     text.text = $"{horizontal}, {vertical}";
-                    Vector2 baseCenter = new Vector2(Base.position.x + Base.rect.width * 0.5f, Base.position.y + Base.rect.height * 0.5f);
-                    Button.position = new Vector3(baseCenter.x, baseCenter.y, 0);
+                    Button.position = ButtonPosition;
                 }
             }
         }
-#endif
+//#endif
     }
 }
