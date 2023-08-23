@@ -36,6 +36,20 @@ public class Joystick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+#if DEBUG
+        float horizontalCoff = 0;
+        float verticalCoff = 0;
+        if (Input.GetKey(KeyCode.W))
+            verticalCoff += 1;
+        if (Input.GetKey(KeyCode.S))
+            verticalCoff -= 1;
+        if (Input.GetKey(KeyCode.A))
+            horizontalCoff -= 1;
+        if (Input.GetKey(KeyCode.D))
+            horizontalCoff += 1;
+        horizontal = horizontalCoff;
+        vertical = verticalCoff;
+#else
         for (int touchNumber = 0; touchNumber < Input.touchCount; touchNumber++) 
         {
             Touch touch = Input.GetTouch(touchNumber);
@@ -85,5 +99,6 @@ public class Joystick : MonoBehaviour
                 }
             }
         }
+#endif
     }
 }

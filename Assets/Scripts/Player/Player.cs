@@ -9,10 +9,18 @@ public class Player : MonoBehaviour
 
     public float speed = 1.5f;
 
+    [SerializeField]
+    private GameObject projectile;
+
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    public void FireMissile()
+    {
+        Instantiate(projectile, transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame
